@@ -46,7 +46,7 @@ public class Controller : ControllerBase
                 FirstName = newClient.FirstName,
                 LastName = newClient.LastName,
                 Address = newClient.Address,
-       
+                
             });
 
           
@@ -68,8 +68,8 @@ public class Controller : ControllerBase
             FirstName = newClient.FirstName,
             LastName = newClient.LastName,
             Address = newClient.Address,
-            newClient.CarToClients
-            
+            Cars = newClient.CarToClients
+
         });
 
     }
