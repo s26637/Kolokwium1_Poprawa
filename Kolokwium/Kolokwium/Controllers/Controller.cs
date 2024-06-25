@@ -49,17 +49,22 @@ public class Controller : ControllerBase
        
             });
 
-            foreach (var car in newClient.CarToClients)
-            {
-                await _carRepository.AddCarsToClient(id, car);
-            }
+          
 
             scope.Complete();
         }
 
-        return Created(Request.Path.Value ?? "api/clients", new
+        using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
         {
-            Id = id,
+             foreach (var car in newClient.CarToClients)
+             {
+                 await _carRepository.AddCarsToClient(id, car);
+             } 
+             scope.Complete();
+
+        }
+        return Created("/api/clients", new
+        {
             FirstName = newClient.FirstName,
             LastName = newClient.LastName,
             Address = newClient.Address,
